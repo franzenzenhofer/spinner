@@ -125,7 +125,7 @@
         state.speed *= (decayRate * state.difficultyFactor);
         state.length *= (decayRate * state.difficultyFactor);
 
-        if (state.speed <= initialSpeed*1.2) {
+        if (state.speed <= initialSpeed*1.5) {
             if (!minSpeedTime) {
                 minSpeedTime = Date.now();
             } else if ((Date.now() - minSpeedTime >= 1000)&& (state.level > 0)) {
