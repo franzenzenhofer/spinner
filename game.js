@@ -119,6 +119,8 @@
         drawSpinner();
         state.angle += state.speed;
 
+        
+
         // Apply decay
         state.speed *= (decayRate * state.difficultyFactor);
         state.length *= (decayRate * state.difficultyFactor);
