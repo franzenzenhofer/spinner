@@ -125,10 +125,10 @@
         state.speed *= (decayRate * state.difficultyFactor);
         state.length *= (decayRate * state.difficultyFactor);
 
-        if (state.speed <= initialSpeed*1.1) {
+        if (state.speed <= initialSpeed*1.2) {
             if (!minSpeedTime) {
                 minSpeedTime = Date.now();
-            } else if ((Date.now() - minSpeedTime >= 2000)&& (state.level > 0)) {
+            } else if ((Date.now() - minSpeedTime >= 1000)&& (state.level > 0)) {
                 resetGame(false); // Lost
             }
         } else {
