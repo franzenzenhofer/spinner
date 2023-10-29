@@ -11,7 +11,7 @@
     const initialLength = maxAngle * 0.05;
     const pathRadius = width * 0.25;
     const growthRate = 0.2; // Fine-tuned for ~5 clicks/sec
-    const decayRate = 0.9995; // Fine-tuned
+    const decayRate = 0.9991; // Fine-tuned
     const difficultyFactorGrowth = 0.995;
     let minSpeedTime = null;
 
