@@ -36,6 +36,8 @@
     
     let levelDisplayTimeout = null;
 
+    
+
 
     function removeLevelDisplayElements() {
         let elements = document.getElementsByClassName('level-display');
