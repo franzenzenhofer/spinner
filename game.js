@@ -1,10 +1,13 @@
 (() => {
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    let width = document.documentElement.clientWidth || window.innerWidth;
+    let height = document.documentElement.clientHeight || window.innerHeight;
     canvas.width = width;
     canvas.height = height;
+
+    
+
     const center = { x: width / 2, y: height / 2 };
     const maxAngle = 2 * Math.PI;
     const initialSpeed = 0.01;
