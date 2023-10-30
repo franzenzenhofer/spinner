@@ -9,7 +9,8 @@
     const maxAngle = 2 * Math.PI;
     const initialSpeed = 0.01;
     const initialLength = maxAngle * 0.05;
-    const pathRadius = width * 0.25;
+    let pathRadius = Math.min(width, height) * 0.25;
+    if (pathRadius > 120) { pathRadius = 120; }
     const growthRate = 0.2; // Fine-tuned for ~5 clicks/sec
     const decayRate = 0.9991; // Fine-tuned
     const difficultyFactorGrowth = 0.995;
