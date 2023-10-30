@@ -36,6 +36,14 @@
     
     let levelDisplayTimeout = null;
 
+
+    function removeLevelDisplayElements() {
+        let elements = document.getElementsByClassName('level-display');
+        while(elements.length > 0){
+            elements[0].parentNode.removeChild(elements[0]);
+        }
+    }
+
 function displayLevel() {
     // Clear any existing timeout
     if (levelDisplayTimeout) {
@@ -57,6 +65,7 @@ function displayLevel() {
     levelDisplay.textContent = `${state.level}`;
 
     // Add the div to the body
+    removeLevelDisplayElements();
     document.body.appendChild(levelDisplay);
 
     // Fade in the div
@@ -68,10 +77,7 @@ function displayLevel() {
     levelDisplayTimeout = setTimeout(() => {
         levelDisplay.style.opacity = '0';
         setTimeout(() => {
-            let elements = document.getElementsByClassName('level-display');
-while(elements.length > 0){
-    elements[0].parentNode.removeChild(elements[0]);
-}
+            removeLevelDisplayElements();
         }, 200); // Wait for the fade out transition to finish before removing the div
     }, 300); // Display for 1.5 seconds before starting the fade out
 }
@@ -139,8 +145,8 @@ while(elements.length > 0){
             state.difficultyFactor /= difficultyFactorGrowth;  // Decrease difficulty
         }
         console.log(state.level);
-        state.speed = initialSpeed;
-        state.length = initialLength;
+        //state.speed = initialSpeed;
+        //state.length = initialLength;
         state.currentColor = getRandomNeonColor();
         minSpeedTime = null; // Reset the minimum speed timer
         displayLevel();
@@ -207,7 +213,7 @@ while(elements.length > 0){
 
     
 
-    document.addEventListener('keydown', handleIncreaseSpeed);
+    document.addEventListener('keyup', handleIncreaseSpeed);
 document.addEventListener('touchstart', handleIncreaseSpeed, { passive: false });
     document.addEventListener('mousedown', handleIncreaseSpeed);
     
