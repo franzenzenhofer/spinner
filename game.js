@@ -30,6 +30,43 @@
         difficultyFactor: 1.0,
     };
     
+    let levelDisplayTimeout = null;
+
+function displayLevel() {
+    // Clear any existing timeout
+    if (levelDisplayTimeout) {
+        clearTimeout(levelDisplayTimeout);
+    }
+
+    // Create a div to display the level
+    const levelDisplay = document.createElement('div');
+    levelDisplay.style.position = 'fixed';
+    levelDisplay.style.top = '50%';
+    levelDisplay.style.left = '50%';
+    levelDisplay.style.transform = 'translate(-50%, -50%)';
+    levelDisplay.style.fontSize = '3em';
+    levelDisplay.style.color = state.currentColor;
+    levelDisplay.style.fontFamily = "'Roboto', sans-serif"; // Use the 'Roboto' font
+    levelDisplay.style.opacity = '0';
+    levelDisplay.style.transition = 'opacity 0.5s'; // Add a transition for the opacity
+    levelDisplay.textContent = `${state.level}`;
+
+    // Add the div to the body
+    document.body.appendChild(levelDisplay);
+
+    // Fade in the div
+    setTimeout(() => {
+        levelDisplay.style.opacity = '1';
+    }, 0);
+
+    // Fade out and remove the div after a short period of time
+    levelDisplayTimeout = setTimeout(() => {
+        levelDisplay.style.opacity = '0';
+        setTimeout(() => {
+            document.body.removeChild(levelDisplay);
+        }, 200); // Wait for the fade out transition to finish before removing the div
+    }, 300); // Display for 1.5 seconds before starting the fade out
+}
 
 
     function getRandomNeonColor() {
@@ -91,6 +128,7 @@
         state.length = initialLength;
         state.currentColor = getRandomNeonColor();
         minSpeedTime = null; // Reset the minimum speed timer
+        displayLevel();
     }
     
       
