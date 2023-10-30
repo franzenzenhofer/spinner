@@ -142,8 +142,8 @@ function displayLevel() {
         if (isWin) {
             state.level++;
             state.difficultyFactor *= difficultyFactorGrowth;
-            state.speed = state.speed*0.75;
-            state.length = state.length*0.75;
+            state.speed = state.speed*0.4;
+            state.length = state.length*0.4;
         } else if (state.level > 0) {
             state.level--;
             state.difficultyFactor /= difficultyFactorGrowth;  // Decrease difficulty
