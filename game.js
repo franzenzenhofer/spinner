@@ -26,8 +26,9 @@
         speed: initialSpeed,
         angle: 0,
         length: initialLength,
-        currentColor: getRandomNeonColor(),
+        currentColor: "white",
         difficultyFactor: 1.0,
+        hue: 0
     };
     
     let levelDisplayTimeout = null;
@@ -40,6 +41,7 @@ function displayLevel() {
 
     // Create a div to display the level
     const levelDisplay = document.createElement('div');
+    levelDisplay.className = 'level-display';
     levelDisplay.style.position = 'fixed';
     levelDisplay.style.top = '50%';
     levelDisplay.style.left = '50%';
@@ -63,48 +65,58 @@ function displayLevel() {
     levelDisplayTimeout = setTimeout(() => {
         levelDisplay.style.opacity = '0';
         setTimeout(() => {
-            document.body.removeChild(levelDisplay);
+            let elements = document.getElementsByClassName('level-display');
+while(elements.length > 0){
+    elements[0].parentNode.removeChild(elements[0]);
+}
         }, 200); // Wait for the fade out transition to finish before removing the div
     }, 300); // Display for 1.5 seconds before starting the fade out
 }
 
 
     function getRandomNeonColor() {
-        // Neon colors are typically fully saturated and bright, so we set these values high
-        const saturation = 100;
-        const brightness = 100;
+        let newColor;
+        let newHue;
+        do {
+            // Neon colors are typically fully saturated and bright, so we set these values high
+            const saturation = 100;
+            const brightness = 100;
 
-        // Hue is what we will randomize. There are 360 degrees of hue.
-        const hue = Math.floor(Math.random() * 360);
+            // Hue is what we will randomize. There are 360 degrees of hue.
+            newHue = Math.floor(Math.random() * 360);
 
-        // Convert the HSV color to RGB using the formula
-        const c = (brightness / 100) * (saturation / 100);
-        const x = c * (1 - Math.abs(((hue / 60) % 2) - 1));
-        const m = (brightness / 100) - c;
+            // Convert the HSV color to RGB using the formula
+            const c = (brightness / 100) * (saturation / 100);
+            const x = c * (1 - Math.abs(((newHue / 60) % 2) - 1));
+            const m = (brightness / 100) - c;
 
-        let r, g, b;
-        if (hue < 60) {
-            [r, g, b] = [c, x, 0];
-        } else if (hue < 120) {
-            [r, g, b] = [x, c, 0];
-        } else if (hue < 180) {
-            [r, g, b] = [0, c, x];
-        } else if (hue < 240) {
-            [r, g, b] = [0, x, c];
-        } else if (hue < 300) {
-            [r, g, b] = [x, 0, c];
-        } else {
-            [r, g, b] = [c, 0, x];
-        }
+            let r, g, b;
+            if (newHue < 60) {
+                [r, g, b] = [c, x, 0];
+            } else if (newHue < 120) {
+                [r, g, b] = [x, c, 0];
+            } else if (newHue < 180) {
+                [r, g, b] = [0, c, x];
+            } else if (newHue < 240) {
+                [r, g, b] = [0, x, c];
+            } else if (newHue < 300) {
+                [r, g, b] = [x, 0, c];
+            } else {
+                [r, g, b] = [c, 0, x];
+            }
 
-        // Convert RGB values from [0, 1] to [0, 255] and round them
-        // Then convert to hexadecimal and pad with zeros if necessary
-        r = Math.floor((r + m) * 255).toString(16).padStart(2, '0');
-        g = Math.floor((g + m) * 255).toString(16).padStart(2, '0');
-        b = Math.floor((b + m) * 255).toString(16).padStart(2, '0');
+            // Convert RGB values from [0, 1] to [0, 255] and round them
+            // Then convert to hexadecimal and pad with zeros if necessary
+            r = Math.floor((r + m) * 255).toString(16).padStart(2, '0');
+            g = Math.floor((g + m) * 255).toString(16).padStart(2, '0');
+            b = Math.floor((b + m) * 255).toString(16).padStart(2, '0');
 
-        // Return the RGB color as a hex string
-        return `#${r}${g}${b}`;
+            // Return the RGB color as a hex string
+            newColor = `#${r}${g}${b}`;
+        } while (Math.abs(newHue - state.hue) < 60); // Ensure the new hue is at least 60 degrees away from the current hue
+
+        state.hue = newHue; // Update the current hue
+        return newColor;
     }
 
     function handleIncreaseSpeed(e) {
