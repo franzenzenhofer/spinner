@@ -142,13 +142,14 @@ function displayLevel() {
         if (isWin) {
             state.level++;
             state.difficultyFactor *= difficultyFactorGrowth;
+            state.speed = state.speed*0.75;
+            state.length = state.length*0.75;
         } else if (state.level > 0) {
             state.level--;
             state.difficultyFactor /= difficultyFactorGrowth;  // Decrease difficulty
         }
         console.log(state.level);
-        //state.speed = initialSpeed;
-        //state.length = initialLength;
+       
         state.currentColor = getRandomNeonColor();
         minSpeedTime = null; // Reset the minimum speed timer
         displayLevel();
