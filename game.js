@@ -43,7 +43,7 @@ function displayLevel() {
     const levelDisplay = document.createElement('div');
     levelDisplay.className = 'level-display';
     levelDisplay.style.position = 'fixed';
-    levelDisplay.style.top = '50%';
+    levelDisplay.style.top = '14%';
     levelDisplay.style.left = '50%';
     levelDisplay.style.transform = 'translate(-50%, -50%)';
     levelDisplay.style.fontSize = '3em';
